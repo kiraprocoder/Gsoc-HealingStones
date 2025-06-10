@@ -47,12 +47,7 @@ def get_angles(n):
     return theta_x, theta_y, 0
 
 def align_face_up(mesh, n, mean_point):
-    """
-    We want the piece with the flat surface (from normal n)
-    looking "up" in the z-axis and in the origin (0, 0, 0).
-    So rotation in z is not needed (we don't have yet a solution)
-    We just want on xz and yz plane so set it flat
-    """
+    
     # move to origin
     mesh.translate(-mean_point)
 
