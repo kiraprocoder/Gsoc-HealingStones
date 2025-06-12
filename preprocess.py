@@ -15,28 +15,26 @@ print("start")
 
 grid_size = 250
 
-# 👉 YOU DON'T NEED groups anymore
-processed_folder = root_path  # ← Look directly in test_set/
+processed_folder = root_path 
 
 # Open setup.blend or start empty
 if os.path.exists(filepath):
     bpy.ops.wm.open_mainfile(filepath=filepath)
 else:
-    print("⚠️ setup.blend not found. Using empty scene.")
+    print("creating empty scene")
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
 bpy.data.use_autopack = True
 bpy.context.scene.unit_settings.scale_length = 0.001
 bpy.context.scene.unit_settings.length_unit = 'MILLIMETERS'
 
-# ✅ Check for .ply files directly in root_path
 files = os.listdir(processed_folder)
-ply_meshes_list = [file for file in files if file.endswith('.ply')]
+ply_meshes_list = [file for file in files if file.lower().endswith('.ply')]
 print(ply_meshes_list)
 
 num_pieces = len(ply_meshes_list)
 if num_pieces == 0:
-    print("❌ No .ply files found!")
+    print("No .ply files found!")
 else:
     on_axis = np.ceil(np.sqrt(num_pieces)).astype(int)
     x_ = np.linspace(-grid_size, grid_size, on_axis)
@@ -56,6 +54,4 @@ else:
 
     save_path = os.path.join(target_gt_folder, f"all_ply_files_TODO.blend")
     bpy.ops.wm.save_mainfile(filepath=save_path)
-    print("✅ Saved:", save_path)
-
-print("✅ Finished")
+    print("Saved:", save_path)
