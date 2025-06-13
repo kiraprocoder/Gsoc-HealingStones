@@ -1,7 +1,10 @@
 import bpy
 import os, json
 
+#make a path in ground truth as "DONE" and save the blend
 root_path = '/home/kira/Desktop/test_set/ground_truth'
+
+
 solved_puzzles = os.path.join(root_path, 'DONE')
 solved_puzzles_gt = os.path.join(root_path, 'gt_json')
 os.makedirs(solved_puzzles_gt, exist_ok=True)
@@ -18,7 +21,7 @@ for solved_puzzle in list_of_solved_puzzles:
     bpy.context.scene.unit_settings.length_unit = 'MILLIMETERS'
 
     for obj in bpy.data.objects:
-        if obj.type == 'MESH':  # ← NOW: only mesh objects
+        if obj.type == 'MESH':  
             loc = obj.location
             rot_euler = obj.rotation_euler
             rot_quat = rot_euler.to_quaternion()
@@ -33,4 +36,4 @@ for solved_puzzle in list_of_solved_puzzles:
     with open(target_gt_path, 'w') as jtp:
         json.dump(gt_dict, jtp, indent=3)
 
-    print(f"✅ Saved JSON: {target_gt_path}")
+    print(f"Saved JSON: {target_gt_path}")
