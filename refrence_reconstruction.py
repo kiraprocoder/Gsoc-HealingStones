@@ -2,10 +2,10 @@ import open3d as o3d
 import json, os
 import numpy as np
 
-# 👇 YOUR PATHS 👇
-ROOT_FOLDER = '/home/kira/Desktop/test_set'
-JSON_PATH = '/home/kira/Desktop/test_set/ground_truth/gt_json/all_ply_files_DONE.json'
-OUTPUT_FOLDER = '/home/kira/Desktop/test_set/ground_truth/reconstructed'
+# Add the proper paths 
+ROOT_FOLDER = '/home/kira/Desktop/test_set' # root path where the fragments are saved 
+JSON_PATH = '/home/kira/Desktop/test_set/ground_truth/gt_json/all_ply_files_DONE.json' # refrence json path
+OUTPUT_FOLDER = '/home/kira/Desktop/test_set/ground_truth/reconstructed' 
 
 def main():
     with open(JSON_PATH, 'r') as jp:
@@ -20,13 +20,13 @@ def main():
         meshes_names.append(f"{gtk}.ply")
 
         if not os.path.exists(ply_path):
-            print(f"❌ File not found: {ply_path}")
+            print(f"no available files: {ply_path}")
             continue
 
         mesh = o3d.io.read_triangle_mesh(ply_path, enable_post_processing=True)
 
         if len(np.asarray(mesh.vertices)) == 0:
-            print(f"⚠️ No vertices found in: {ply_path}")
+            print(f"empty mesh {ply_path}")
             continue
 
         # place them in the origin
@@ -50,7 +50,7 @@ def main():
             all_pts = np.concatenate((all_pts, np.asarray(mesh.vertices)))
 
     if all_pts.size == 0:
-        print("❌ No vertices found in any meshes. Exiting.")
+        print("empty mesh")
         return
 
     cframe = o3d.geometry.TriangleMesh.create_coordinate_frame(size=100)
