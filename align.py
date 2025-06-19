@@ -59,8 +59,6 @@ def align_face_up(mesh, n, mean_point):
     Ry = get_R_y(n)
     mesh.transform(matrix_3x3_to_4x4(Ry))
 
-    # no return, the mesh is transformed
-
 
 def matrix_3x3_to_4x4(m):
 
