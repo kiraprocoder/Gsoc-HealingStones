@@ -33,3 +33,4 @@ after executing these in order this generates a .pt graph file which is used to 
 - trainer.py
 
 there are room for improvements in these. I'll be working on the architecture of this for now 
+Right now im also working on a creating a dataset from the fragment pairs
